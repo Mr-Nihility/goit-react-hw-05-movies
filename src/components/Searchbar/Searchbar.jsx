@@ -8,10 +8,13 @@ import {
   SearchInput,
 } from './Searchbar.styles';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { getSerchMovies } from 'API/api-services';
 //---------------------------------------------//
-const Searchbar = ({ onSubmit }) => {
+const Searchbar = () => {
   const [query, setQuery] = useState('');
-
+  const [searchFilm, setSearchFilm] = useState(null);
+  let navigate = useNavigate();
   const handlerInput = e => setQuery(e.target.value);
 
   const handlerSubmit = e => {
@@ -29,8 +32,15 @@ const Searchbar = ({ onSubmit }) => {
       });
       return;
     }
-    onSubmit(query);
-    setQuery('');
+    getSerchMovies(query.trim())
+      .then(data => {
+        console.log(data.results);
+        setSearchFilm(data.results[0]);
+        console.log(searchFilm);
+      })
+      .finally(() =>
+        navigate(`/goit-react-hw-05-movies/movies/${searchFilm.id}`)
+      );
   };
 
   return (
