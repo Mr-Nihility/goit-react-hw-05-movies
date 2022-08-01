@@ -17,7 +17,7 @@ export const getPoPMovies = async () => {
 };
 export const getSerchMovies = async query => {
   const { data } = await moviesApiClient.get('/search/movie', {
-    query,
+    params: { query },
   });
   return data;
 };
