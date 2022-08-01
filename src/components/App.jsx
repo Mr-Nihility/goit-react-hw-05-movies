@@ -2,7 +2,9 @@ import { Route, Routes } from 'react-router-dom';
 import { Home } from 'components/Home/Home';
 import { SharedLayout } from './SharedLayout/SharedLayout ';
 import { Searchbar } from './Searchbar/Searchbar';
-import { MovieCard } from './MovieCard/MovieCard';
+import { MovieView } from 'pages/MovieView';
+import { Cast } from './Cast/Cast';
+import { Review } from './Review/Review';
 //--------------------------------------------------------------//
 export const App = () => {
   return (
@@ -25,10 +27,10 @@ export const App = () => {
           />
           <Route
             path="/goit-react-hw-05-movies/movies/:movieId"
-            element={<MovieCard />}
+            element={<MovieView />}
           >
-            <Route path="cast" />
-            <Route path="reviews" />
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Review />} />
           </Route>
         </Route>
       </Routes>
