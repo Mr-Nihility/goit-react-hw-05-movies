@@ -1,6 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
-import { Home } from 'pages/Home';
+import { Home } from 'components/Home/Home';
 import { SharedLayout } from './SharedLayout/SharedLayout ';
+import { Searchbar } from './Searchbar/Searchbar';
+import { MovieCard } from './MovieCard/MovieCard';
 //--------------------------------------------------------------//
 export const App = () => {
   return (
@@ -15,13 +17,19 @@ export const App = () => {
     // }}
     >
       <Routes>
-        <Route path="/" element={<SharedLayout />}>
+        <Route path="/goit-react-hw-05-movies/" element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path="/movies" />
-        </Route>
-        <Route path="/movies/:movieId">
-          <Route path="cast" />
-          <Route path="reviews" />
+          <Route
+            path="/goit-react-hw-05-movies/movies"
+            element={<Searchbar />}
+          />
+          <Route
+            path="/goit-react-hw-05-movies/movies/:movieId"
+            element={<MovieCard />}
+          >
+            <Route path="cast" />
+            <Route path="reviews" />
+          </Route>
         </Route>
       </Routes>
     </div>
