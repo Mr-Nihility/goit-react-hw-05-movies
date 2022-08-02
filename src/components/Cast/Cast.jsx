@@ -17,15 +17,19 @@ export const Cast = () => {
   }, [movieId]);
   return (
     <>
-      <List>
-        {movieCast.map(item => {
-          return (
-            <li key={item.id}>
-              <CastItem cast={item}></CastItem>
-            </li>
-          );
-        })}
-      </List>
+      {movieCast && movieCast.length ? (
+        <List>
+          {movieCast.map(item => {
+            return (
+              <li key={item.id}>
+                <CastItem cast={item}></CastItem>
+              </li>
+            );
+          })}
+        </List>
+      ) : (
+        <p>No data</p>
+      )}
     </>
   );
 };
