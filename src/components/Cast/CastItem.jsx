@@ -1,4 +1,6 @@
 import { Img } from 'components/MovieCard/MovieCard.styled';
+import { PropTypes } from 'prop-types';
+//---------------------------------------------------------------------//
 
 export const CastItem = ({ cast }) => {
   const { character, name, profile_path } = cast;
@@ -16,4 +18,12 @@ export const CastItem = ({ cast }) => {
       <p>Character: {character}</p>
     </>
   );
+};
+
+CastItem.propTypes = {
+  cast: PropTypes.shape({
+    character: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    profile_path: PropTypes.string,
+  }),
 };

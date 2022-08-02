@@ -9,7 +9,7 @@ import { Review } from './Review/Review';
 // import NotFound from 'pages/NotFound';
 
 const NotFound = lazy(() => import('pages/NotFound'));
-const Searchbar = lazy(() => import('./Searchbar/Searchbar'));
+const Searchbar = lazy(() => import('../pages/Searchbar'));
 const MovieView = lazy(() => import('pages/MovieView'));
 const Home = lazy(() => import('pages/Home'));
 

@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { List } from 'components/SharedLayout/SharedLayout.styled';
+import { PropTypes } from 'prop-types';
 //---------------------------------------------------//
 export const FilmList = ({ filmList }) => {
   const location = useLocation();
@@ -30,4 +31,15 @@ export const FilmList = ({ filmList }) => {
       </List>
     </>
   );
+};
+
+FilmList.propTypes = {
+  filmList: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string,
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string,
+      poster_path: PropTypes.string.isRequired,
+    })
+  ),
 };

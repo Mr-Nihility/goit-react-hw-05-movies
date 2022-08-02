@@ -22,8 +22,10 @@ export default function Searchbar() {
     setQuery(e.target.value);
   };
   useEffect(() => {
+    if (!searchParams.get('query')) {
+      return;
+    }
     getSerchMovies(searchParams.get('query')).then(data => {
-      console.log(data.results);
       setSearchFilmList(data.results);
     });
   }, [searchParams, query]);

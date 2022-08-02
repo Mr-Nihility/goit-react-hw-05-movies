@@ -12,7 +12,6 @@ export const Review = () => {
 
   useEffect(() => {
     getRewiesMovies(movieId).then(data => {
-      console.log(data);
       setMovieReviews(data.results);
     });
   }, [movieId]);

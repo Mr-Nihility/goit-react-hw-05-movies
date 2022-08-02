@@ -1,4 +1,5 @@
 import { Card, Desc, Img } from './MovieCard.styled';
+import { PropTypes } from 'prop-types';
 //---------------------------------------------//
 export const MovieCard = ({ movie }) => {
   const {
@@ -34,4 +35,16 @@ export const MovieCard = ({ movie }) => {
       </Desc>
     </Card>
   );
+};
+
+MovieCard.propTypes = {
+  movie: PropTypes.shape({
+    poster_path: PropTypes.string.isRequired,
+    title: PropTypes.string,
+    name: PropTypes.string,
+    release_date: PropTypes.string.isRequired,
+    vote_average: PropTypes.number.isRequired,
+    overview: PropTypes.string.isRequired,
+    genres: PropTypes.array.isRequired,
+  }),
 };

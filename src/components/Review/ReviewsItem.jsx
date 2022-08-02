@@ -1,3 +1,5 @@
+import { PropTypes } from 'prop-types';
+//------------------------------------------------------//
 export const ReviewsItem = ({ reviews }) => {
   const {
     author_details: { name, avatar_path },
@@ -13,4 +15,14 @@ export const ReviewsItem = ({ reviews }) => {
       <hr />
     </>
   );
+};
+
+ReviewsItem.propTypes = {
+  reviews: PropTypes.shape({
+    avatar_path: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      avatar_path: PropTypes.string.isRequired,
+    }),
+    content: PropTypes.string.isRequired,
+  }),
 };
