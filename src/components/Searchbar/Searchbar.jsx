@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   SearchHeader,
   SearchBtn,
@@ -8,14 +8,26 @@ import {
   SearchInput,
 } from './Searchbar.styles';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { getSerchMovies } from 'API/api-services';
 //---------------------------------------------//
+
 const Searchbar = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [query, setQuery] = useState('');
-  const [searchFilm, setSearchFilm] = useState(null);
-  let navigate = useNavigate();
-  const handlerInput = e => setQuery(e.target.value);
+  const [searchFilmList, setSearchFilmList] = useState(null);
+  // let navigate = useNavigate();
+  const handlerInput = e => {
+    // setSearchParams({ ['query']: e.target.value });
+    setQuery(e.target.value);
+  };
+  useEffect(() => {
+    getSerchMovies(searchParams.get('query')).then(data => {
+      console.log(data.results);
+      setSearchFilmList(data.results);
+    });
+  }, [searchParams]);
 
   const handlerSubmit = e => {
     e.preventDefault();
@@ -32,35 +44,29 @@ const Searchbar = () => {
       });
       return;
     }
-    getSerchMovies(query.trim())
-      .then(data => {
-        console.log(data.results);
-        setSearchFilm(data.results[0]);
-        console.log(searchFilm);
-      })
-      .finally(() =>
-        navigate(`/goit-react-hw-05-movies/movies/${searchFilm.id}`)
-      );
+    setSearchParams({ query: query });
   };
 
   return (
-    <SearchHeader>
-      <SearchForm onSubmit={handlerSubmit}>
-        <SearchBtn type="submit">
-          <SearchLabel>Search</SearchLabel>
-        </SearchBtn>
+    <>
+      <SearchHeader>
+        <SearchForm onSubmit={handlerSubmit}>
+          <SearchBtn type="submit">
+            <SearchLabel>Search</SearchLabel>
+          </SearchBtn>
 
-        <SearchInput
-          type="text"
-          name="query"
-          value={query}
-          autoComplete="off"
-          onChange={handlerInput}
-          autoFocus
-          placeholder="Search movie"
-        />
-      </SearchForm>
-    </SearchHeader>
+          <SearchInput
+            type="text"
+            name="query"
+            value={query}
+            autoComplete="off"
+            onChange={handlerInput}
+            autoFocus
+            placeholder="Search movie"
+          />
+        </SearchForm>
+      </SearchHeader>
+    </>
   );
 };
 
