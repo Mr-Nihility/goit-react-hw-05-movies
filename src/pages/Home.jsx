@@ -12,7 +12,6 @@ export default function Home() {
     //   return;
     // }
     getPoPMovies().then(data => {
-      // console.log(data.results);
       setPopMovies(data.results);
     });
   }, []);

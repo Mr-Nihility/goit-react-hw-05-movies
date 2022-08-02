@@ -12,7 +12,7 @@ const moviesApiClient = axios.create({
 });
 
 export const getPoPMovies = async () => {
-  const { data } = await moviesApiClient.get('/trending/all/week');
+  const { data } = await moviesApiClient.get('/trending/movie/week');
   return data;
 };
 export const getSerchMovies = async query => {
