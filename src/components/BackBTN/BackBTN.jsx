@@ -1,15 +1,13 @@
-import { useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import { NavLinkStyled } from './BackBTN.styled';
 
 export const BackBTN = () => {
   const location = useLocation();
-  useEffect(() => {
-    // location.state
-  }, [location]);
+  console.log(location);
 
   return (
-    <NavLink to={location.state ?? '/'} type="button">
+    <NavLinkStyled to={location?.state?.from ?? '/'} type="button">
       back
-    </NavLink>
+    </NavLinkStyled>
   );
 };

@@ -1,31 +1,61 @@
+import { lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { Home } from 'components/Home/Home';
+// import { Home } from 'pages/Home';
 import { SharedLayout } from './SharedLayout/SharedLayout ';
-import { Searchbar } from './Searchbar/Searchbar';
-import { MovieView } from 'pages/MovieView';
+// import { Searchbar } from './Searchbar/Searchbar';
+// import { MovieView } from 'pages/MovieView';
 import { Cast } from './Cast/Cast';
 import { Review } from './Review/Review';
+// import NotFound from 'pages/NotFound';
+
+const NotFound = lazy(() => import('pages/NotFound'));
+const Searchbar = lazy(() => import('./Searchbar/Searchbar'));
+const MovieView = lazy(() => import('pages/MovieView'));
+const Home = lazy(() => import('pages/Home'));
+
 //--------------------------------------------------------------//
 export const App = () => {
   return (
     <div>
       <Routes>
         <Route path="/goit-react-hw-05-movies/" element={<SharedLayout />}>
-          <Route index element={<Home />} />
+          <Route
+            index
+            element={
+              <Suspense fallback={<h2>Loading ...</h2>}>
+                <Home />
+              </Suspense>
+            }
+          />
           <Route
             path="/goit-react-hw-05-movies/movies"
-            element={<Searchbar />}
+            element={
+              <Suspense fallback={<h2>Loading ...</h2>}>
+                <Searchbar />
+              </Suspense>
+            }
           />
           <Route
             path="/goit-react-hw-05-movies/movies/:movieId"
-            element={<MovieView />}
+            element={
+              <Suspense fallback={<h2>Loading ...</h2>}>
+                <MovieView />
+              </Suspense>
+            }
           >
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Review />} />
           </Route>
         </Route>
 
-        {/* <Route path="*" element={<NotFound />} /> */}
+        <Route
+          path="*"
+          element={
+            <Suspense fallback={<h2>Loading ...</h2>}>
+              <NotFound />
+            </Suspense>
+          }
+        />
       </Routes>
     </div>
   );

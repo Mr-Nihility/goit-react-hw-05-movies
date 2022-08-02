@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import {
   SearchHeader,
@@ -8,18 +7,18 @@ import {
   SearchInput,
 } from './Searchbar.styles';
 import { toast } from 'react-toastify';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { getSerchMovies } from 'API/api-services';
+import { FilmList } from 'components/FilmsList/FilmList';
 //---------------------------------------------//
 
-const Searchbar = () => {
+export default function Searchbar() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [query, setQuery] = useState('');
-  const [searchFilmList, setSearchFilmList] = useState(null);
-  // let navigate = useNavigate();
+  const [searchFilmList, setSearchFilmList] = useState([]);
+
   const handlerInput = e => {
-    // setSearchParams({ ['query']: e.target.value });
     setQuery(e.target.value);
   };
   useEffect(() => {
@@ -27,7 +26,7 @@ const Searchbar = () => {
       console.log(data.results);
       setSearchFilmList(data.results);
     });
-  }, [searchParams]);
+  }, [searchParams, query]);
 
   const handlerSubmit = e => {
     e.preventDefault();
@@ -66,12 +65,7 @@ const Searchbar = () => {
           />
         </SearchForm>
       </SearchHeader>
+      {searchFilmList?.length ? <FilmList filmList={searchFilmList} /> : <></>}
     </>
   );
-};
-
-Searchbar.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-export { Searchbar };
+}

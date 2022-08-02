@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { FilmList } from 'components/FilmsList/FilmList';
 import { getPoPMovies } from 'API/api-services';
 
-export const Home = () => {
+export default function Home() {
   const [popMovieList, setPopMovies] = useState([]);
   // const isFirstLoad = useRef(true);
 
@@ -17,19 +17,5 @@ export const Home = () => {
     });
   }, []);
 
-  return (
-    <>
-      <ul>
-        {popMovieList.map(({ title, id, name }) => {
-          return (
-            <li key={id}>
-              <Link to={`/goit-react-hw-05-movies/movies/${id}`}>
-                {title ? title : name}
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </>
-  );
-};
+  return <FilmList filmList={popMovieList} />;
+}
